@@ -1,275 +1,830 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>فروشگاه ناروین پوز</title>
-<style>
-/* فونت ساده آفلاین */
-body{
-  margin:0;
-  font-family:sans-serif;
-  background: linear-gradient(135deg,#0f3d2e,#000);
-  color:#fff;
-}
-header{
-  border-bottom:1px solid rgba(255,255,255,0.1);
-}
-#menuToggle{
-  cursor:pointer;
-  font-size:28px;
-}
-nav#menu{
-  display:none;
-  flex-direction:column;
-  text-align:center;
-  background:rgba(0,0,0,0.8);
-}
-nav#menu a{
-  padding:10px;
-  color:#fff;
-  text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,0.2);
-}
-nav#menu a:last-child{
-  border-bottom:none;
-}
-header .top-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 20px;
-}
-.slider-container{
-  overflow:hidden;
-  padding:20px 0;
-}
-.slider{
-  display:flex;
-  gap:15px;
-  transition: transform 0.5s ease;
-}
-.card{
-  min-width:220px;
-  background:rgba(0,0,0,0.6);
-  border-radius:10px;
-  padding:15px;
-  flex-shrink:0;
-  text-align:center;
-}
-.card img{
-  width:100%;
-  height:130px;
-  object-fit:cover;
-  border-radius:8px;
-  margin-bottom:10px;
-}
-.price{
-  color:#00ffae;
-  font-weight:bold;
-}
-.card button{
-  margin-top:8px;
-  padding:6px;
-  background:#00ffae;
-  color:#003322;
-  border:none;
-  border-radius:5px;
-  font-weight:500;
-  cursor:pointer;
-}
-.container{
-  max-width:800px;
-  margin:40px auto;
-  background:rgba(0,0,0,0.7);
-  padding:20px;
-  border-radius:12px;
-}
-h2{
-  margin-bottom:15px;
-  text-align:center;
-}
-img.product-img{
-  width:100%;
-  max-width:300px;
-  border-radius:10px;
-  margin-bottom:15px;
-  display:block;
-  margin:auto;
-}
-.details{
-  text-align:right;
-  margin-top:15px;
-}
-.details ul{
-  list-style:none;
-  padding:0;
-}
-.details ul li{
-  padding:4px 0;
-  border-bottom:1px solid rgba(255,255,255,0.2);
-}
-.back{
-  display:block;
-  color:#aaa;
-  text-decoration:none;
-  text-align:center;
-  margin-top:10px;
-}
-#cartItems .item{
-  padding:8px 0;
-  border-bottom:1px solid rgba(255,255,255,0.2);
-  display:flex;
-  justify-content:space-between;
-}
-.total{
-  margin-top:15px;
-  font-weight:bold;
-  text-align:right;
-}
-button.checkout{
-  margin-top:15px;
-  padding:10px;
-  background:#00ffae;
-  color:#003322;
-  border:none;
-  border-radius:6px;
-  font-weight:500;
-  cursor:pointer;
-}
-.hidden{display:none;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دیجی‌کالا - شبیه‌سازی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-top {
+            background-color: #ef394e;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-right {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .header-main {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ef394e;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-bar button {
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ef394e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .action-item i {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .header-bottom {
+            border-top: 1px solid #eee;
+            padding: 10px 0;
+        }
+        
+        .categories {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            font-size: 14px;
+        }
+        
+        .categories li a:hover {
+            color: #ef394e;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 20px 0;
+        }
+        
+        /* Slider Section */
+        .slider-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .categories-sidebar {
+            background-color: white;
+            border-radius: 8px;
+            width: 250px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .categories-sidebar h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .categories-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .categories-list li a:hover {
+            color: #ef394e;
+        }
+        
+        .categories-list li i {
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        .main-slider {
+            flex-grow: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .slider {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        
+        .slide-content h2 {
+            color: #ef394e;
+            margin-bottom: 10px;
+        }
+        
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+        
+        .control-dot.active {
+            background-color: #ef394e;
+        }
+        
+        /* Products Section */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ef394e;
+        }
+        
+        .section-title h2 {
+            color: #333;
+        }
+        
+        .section-title a {
+            color: #19bfd3;
+            font-size: 14px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            height: 40px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            color: #ef394e;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .discount {
+            background-color: #ef394e;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        
+        .rating {
+            color: #ffc107;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Banner Section */
+        .banners {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .banner {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #3c4b6d;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .footer-links li a:hover {
+            color: #19bfd3;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ef394e;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .slider-container {
+                flex-direction: column;
+            }
+            
+            .categories-sidebar {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header-main .container {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                width: 100%;
+                margin: 15px 0 0 0;
+            }
+            
+            .banners {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-actions {
+                display: none;
+            }
+            
+            .categories {
+                font-size: 12px;
+                gap: 15px;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div>به دیجی‌کالا خوش آمدید | خرید آنلاین، تحویل سریع</div>
+                <div class="header-top-right">
+                    <a href="#">سوالی دارید؟</a>
+                    <a href="#">فروشنده شوید</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <a href="#" class="logo">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>دیجی‌کالا</span>
+                </a>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="جستجوی محصولات...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="user-actions">
+                    <a href="#" class="action-item">
+                        <i class="fas fa-user"></i>
+                        <span>ورود | ثبت‌نام</span>
+                    </a>
+                    <a href="#" class="action-item">
+                        <i class="fas fa-heart"></i>
+                        <span>لیست‌ها</span>
+                    </a>
+                    <a href="#" class="action-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>سبد خرید</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-bottom">
+            <div class="container">
+                <ul class="categories">
+                    <li><a href="#"><i class="fas fa-mobile-alt"></i> موبایل</a></li>
+                    <li><a href="#"><i class="fas fa-laptop"></i> لپ‌تاپ</a></li>
+                    <li><a href="#"><i class="fas fa-tshirt"></i> پوشاک</a></li>
+                    <li><a href="#"><i class="fas fa-home"></i> خانه و آشپزخانه</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> کتاب</a></li>
+                    <li><a href="#"><i class="fas fa-gamepad"></i> اسباب‌بازی</a></li>
+                    <li><a href="#"><i class="fas fa-utensils"></i> سوپرمارکت</a></li>
+                    <li><a href="#"><i class="fas fa-car"></i> خودرو</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Slider Section -->
+            <div class="slider-container">
+                <div class="categories-sidebar">
+                    <h3>دسته‌بندی کالاها</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">موبایل و تبلت <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">لپ‌تاپ و کامپیوتر <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">لوازم خانگی <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">مد و پوشاک <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">زیبایی و سلامت <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">ورزش و سفر <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">خوراکی‌ها <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#">کتاب و هنر <i class="fas fa-chevron-left"></i></a></li>
+                    </ul>
+                </div>
+                
+                <div class="main-slider">
+                    <div class="slider">
+                        <div class="slide active" style="background-color: #ffebee;">
+                            <div class="slide-content">
+                                <h2>تخفیف‌های شگفت‌انگیز</h2>
+                                <p>تا 50% تخفیف ویژه برای محصولات دیجیتال</p>
+                                <button style="background-color: #ef394e; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-color: #e8f5e9;">
+                            <div class="slide-content">
+                                <h2>جدیدترین موبایل‌ها</h2>
+                                <p>بهترین برندها با گارانتی معتبر</p>
+                                <button style="background-color: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-color: #e3f2fd;">
+                            <div class="slide-content">
+                                <h2>لوازم خانگی هوشمند</h2>
+                                <p>آسایش را به خانه خود بیاورید</p>
+                                <button style="background-color: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-controls">
+                            <div class="control-dot active" data-slide="0"></div>
+                            <div class="control-dot" data-slide="1"></div>
+                            <div class="control-dot" data-slide="2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="section-title">
+                    <h2>پیشنهادهای ویژه</h2>
+                    <a href="#">مشاهده همه <i class="fas fa-chevron-left"></i></a>
+                </div>
+                
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://cdn.digi-kala.com/p/1/1.jpg" alt="گوشی موبایل">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">گوشی موبایل سامسونگ مدل Galaxy A54 5G دو سیم کارت</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                (۴.۲)
+                            </div>
+                            <div class="product-price">
+                                <div class="price">۱۲,۹۹۰,۰۰۰ تومان</div>
+                                <div class="discount">۱۵٪</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://cdn.digi-kala.com/p/2/2.jpg" alt="لپ تاپ">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">لپ تاپ ۱۵ اینچی اپل مدل MacBook Air M1 2020</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                (۴.۰)
+                            </div>
+                            <div class="product-price">
+                                <div class="price">۴۵,۹۹۰,۰۰۰ تومان</div>
+                                <div class="discount">۱۰٪</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://cdn.digi-kala.com/p/3/3.jpg" alt="هدفون">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">هدفون بی‌سیم سونی مدل WH-1000XM4</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                (۴.۸)
+                            </div>
+                            <div class="product-price">
+                                <div class="price">۱۲,۵۰۰,۰۰۰ تومان</div>
+                                <div class="discount">۲۰٪</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://cdn.digi-kala.com/p/4/4.jpg" alt="شارژر">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">شارژر همراه شیائومی مدل Redmi Power Bank 20000mAh</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                (۴.۳)
+                            </div>
+                            <div class="product-price">
+                                <div class="price">۱,۲۹۰,۰۰۰ تومان</div>
+                                <div class="discount">۵٪</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Banner Section -->
+            <div class="banners">
+                <div class="banner">
+                    <img src="https://cdn.digi-kala.com/banners/1.jpg" alt="تخفیف موبایل">
+                </div>
+                <div class="banner">
+                    <img src="https://cdn.digi-kala.com/banners/2.jpg" alt="لوازم خانگی">
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>با دیجی‌کالا</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">اتاق خبر</a></li>
+                        <li><a href="#">فروش در دیجی‌کالا</a></li>
+                        <li><a href="#">فرصت‌های شغلی</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                        <li><a href="#">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>خدمات مشتریان</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">پاسخ به پرسش‌های متداول</a></li>
+                        <li><a href="#">رویه‌های بازگرداندن کالا</a></li>
+                        <li><a href="#">شرایط استفاده</a></li>
+                        <li><a href="#">حریم خصوصی</a></li>
+                        <li><a href="#">گزارش باگ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>راهنمای خرید</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">نحوه ثبت سفارش</a></li>
+                        <li><a href="#">رویه ارسال سفارش</a></li>
+                        <li><a href="#">شیوه‌های پرداخت</a></li>
+                        <li><a href="#">پیگیری سفارش</a></li>
+                        <li><a href="#">شرایط ضمانت</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>از ما دریافت کنید</h3>
+                    <p>با ثبت ایمیل، از جدیدترین تخفیف‌ها باخبر شوید</p>
+                    <div style="margin-top: 15px;">
+                        <input type="email" placeholder="ایمیل شما" style="width: 100%; padding: 10px; border-radius: 5px; border: none;">
+                        <button style="width: 100%; padding: 10px; margin-top: 10px; background-color: #ef394e; color: white; border: none; border-radius: 5px; cursor: pointer;">ثبت</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>کلیه حقوق این وبسایت متعلق به شرکت دیجی‌کالا (شبیه‌سازی آموزشی) می‌باشد.</p>
+                <p style="margin-top: 10px; font-size: 12px; color: rgba(255, 255, 255, 0.7);">این یک پروژه شبیه‌سازی آموزشی است و هیچ ارتباطی با وبسایت اصلی دیجی‌کالا ندارد.</p>
+            </div>
+        </div>
+    </footer>
 
-<header>
-<div class="top-bar">
-<h1>فروشگاه ناروین پوز</h1>
-<div id="menuToggle">☰</div>
-</div>
-<nav id="menu">
-<a href="#" onclick="showSection('home')">صفحه اصلی</a>
-<a href="#" onclick="showSection('cartPage')">سبد خرید</a>
-</nav>
-</header>
-
-<!-- صفحه اصلی -->
-<div id="home">
-<div class="slider-container">
-<h2>کارتخوان‌ها</h2>
-<div class="slider" id="sliderTop"></div>
-</div>
-<div class="slider-container">
-<h2>لوازم جانبی</h2>
-<div class="slider" id="sliderBottom"></div>
-</div>
-</div>
-
-<!-- صفحه محصول -->
-<div id="productPage" class="hidden container">
-<h2 id="productName">نام محصول</h2>
-<img id="productImage" class="product-img" src="" alt="تصویر محصول">
-<div class="price" id="productPrice">قیمت</div>
-<button id="addCart">افزودن به سبد خرید</button>
-<div class="details">
-<h3>توضیحات کوتاه</h3>
-<p id="productDesc">توضیحات محصول</p>
-<h3>مشخصات فنی</h3>
-<ul id="productSpecs"></ul>
-</div>
-<a class="back" href="#" onclick="showSection('home')">بازگشت به فروشگاه</a>
-</div>
-
-<!-- صفحه سبد خرید -->
-<div id="cartPage" class="hidden container">
-<h2>سبد خرید شما</h2>
-<div id="cartItems"></div>
-<div class="total" id="totalPrice"></div>
-<button class="checkout" onclick="checkout()">تکمیل خرید</button>
-<a class="back" href="#" onclick="showSection('home')">بازگشت به فروشگاه</a>
-</div>
-
-<script>
-// داده محصولات
-const products=[
-{name:"دستگاه کش لس T1 Pro",price:"۳۸,۰۰۰,۰۰۰ تومان",desc:"توضیحات T1 Pro",id:"t1pro",specs:["سایز کوچک","باطری داخلی"]},
-{name:"دستگاه کارتخوان PAX S90",price:"۷,۰۰۰,۰۰۰ تومان",desc:"توضیحات PAX S90",id:"paxs90",specs:["قابلیت NFC","صفحه نمایش رنگی"]},
-{name:"دستگاه کارتخوان AMP 9000",price:"۱۰,۰۰۰,۰۰۰ تومان",desc:"توضیحات AMP 9000",id:"amp9000",specs:["سرعت بالا","سبک و کوچک"]},
-{name:"دستگاه کارتخوان PAX D230",price:"۱۲,۰۰۰,۰۰۰ تومان",desc:"توضیحات PAX D230",id:"paxd230",specs:["دارای WiFi","باطری قابل تعویض"]},
-{name:"آداپتور شارژ",price:"۱,۲۰۰,۰۰۰ تومان",desc:"آداپتور شارژ با کیفیت",id:"adapter",specs:["سرعت شارژ بالا","سازگار با تمام مدل‌ها"]},
-{name:"کابل شارژ",price:"۵۰۰,۰۰۰ تومان",desc:"کابل مقاوم و منعطف",id:"cable",specs:["طول ۱ متر","پوشش ضد گره"]},
-{name:"باتری دستگاه",price:"۶۰۰,۰۰۰ تومان",desc:"باتری با ظرفیت بالا",id:"battery",specs:["طول عمر طولانی","قابل شارژ مجدد"]},
-{name:"نرم‌افزار دستگاه",price:"۷۰۰,۰۰۰ تومان",desc:"نرم‌افزار کاربردی",id:"software",specs:["رابط کاربری ساده","آپدیت رایگان"]},
-{name:"۱۰ تایی کاغذ رول دستگاه",price:"۱۲۰,۰۰۰ تومان",desc:"کاغذ رول با کیفیت",id:"paper",specs:["۱۰ عدد در بسته","مقاوم در حرارت"]}
-];
-
-// ایجاد اسلایدرها
-const sliderTop=document.getElementById('sliderTop');
-const sliderBottom=document.getElementById('sliderBottom');
-products.forEach(p=>{
-const card=document.createElement('div');card.className='card';
-card.innerHTML=`<h3>${p.name}</h3><div class="price">${p.price}</div><button onclick="showProduct('${p.id}')">مشاهده</button>`;
-if(["adapter","cable","battery","software","paper"].includes(p.id)){
-  sliderBottom.appendChild(card);
-}else{
-  sliderTop.appendChild(card);
-}
-});
-
-// اسلایدر خودکار سبک
-let scrollTop=0; const cardWidthTop=220;
-setInterval(()=>{scrollTop+=cardWidthTop;if(scrollTop>=sliderTop.scrollWidth-sliderTop.clientWidth)scrollTop=0;sliderTop.style.transform=`translateX(-${scrollTop}px)`;},3000);
-let scrollBottom=0; const cardWidthBottom=220;
-setInterval(()=>{scrollBottom+=cardWidthBottom;if(scrollBottom>=sliderBottom.scrollWidth-sliderBottom.clientWidth)scrollBottom=0;sliderBottom.style.transform=`translateX(-${scrollBottom}px)`;},3000);
-
-// منوی همبرگری
-document.getElementById('menuToggle').addEventListener('click',()=>{menu.style.display=(menu.style.display==="flex")?"none":"flex";});
-
-// نمایش بخش‌ها
-function showSection(id){
-document.getElementById('home').classList.add('hidden');
-document.getElementById('productPage').classList.add('hidden');
-document.getElementById('cartPage').classList.add('hidden');
-document.getElementById(id).classList.remove('hidden');
-if(id==='cartPage') updateCart();
-}
-
-// نمایش محصول
-function showProduct(id){
-const product=products.find(p=>p.id===id);
-document.getElementById('productName').textContent=product.name;
-document.getElementById('productPrice').textContent=product.price;
-document.getElementById('productDesc').textContent=product.desc;
-document.getElementById('productImage').src="https://via.placeholder.com/300x200?text=تصویر+محصول";
-const specsUl=document.getElementById('productSpecs'); specsUl.innerHTML="";
-product.specs.forEach(s=>{const li=document.createElement('li');li.textContent=s;specsUl.appendChild(li);});
-showSection('productPage');
-
-// افزودن به سبد خرید
-document.getElementById('addCart').onclick=function(){
-let cart=JSON.parse(localStorage.getItem('cart'))||[];
-cart.push(product);
-localStorage.setItem('cart',JSON.stringify(cart));
-alert('محصول به سبد خرید اضافه شد!');
-showSection('cartPage');
-updateCart();
-}
-}
-
-// سبد خرید
-function updateCart(){
-const cartDiv=document.getElementById('cartItems'); cartDiv.innerHTML="";
-let cart=JSON.parse(localStorage.getItem('cart'))||[];
-let total=0;
-cart.forEach(p=>{
-const div=document.createElement('div'); div.className='item';
-div.innerHTML=`<span>${p.name}</span><span>${p.price}</span>`;
-cartDiv.appendChild(div);
-total+=parseInt(p.price.replace(/,/g,'').replace(/ تومان/,'')||0);
-});
-document.getElementById('totalPrice').textContent='جمع کل: '+total.toLocaleString('fa-IR')+' تومان';
-}
-
-function checkout(){alert('پرداخت شبیه‌سازی شد، سبد خرید پاک شد.');localStorage.removeItem('cart');updateCart();}
-</script>
+    <script>
+        // Slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.control-dot');
+            let currentSlide = 0;
+            
+            // Function to show a specific slide
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Show the selected slide
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Add click event to dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto slide every 5 seconds
+            setInterval(() => {
+                let nextSlide = (currentSlide + 1) % slides.length;
+                showSlide(nextSlide);
+            }, 5000);
+            
+            // Product card hover effect
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
+                });
+            });
+            
+            // Search bar focus effect
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.boxShadow = '0 0 0 2px rgba(239, 57, 78, 0.2)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.boxShadow = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
