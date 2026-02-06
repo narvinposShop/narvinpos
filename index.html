@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیجی‌کالا - شبیه‌سازی</title>
+    <title>ناروین پوز - فروشگاه تخصصی دستگاه‌های پرداخت</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset & Base Styles */
@@ -42,7 +42,7 @@
         }
         
         .header-top {
-            background-color: #ef394e;
+            background-color: #0dbf6f;
             color: white;
             padding: 8px 0;
             font-size: 14px;
@@ -69,11 +69,13 @@
             gap: 10px;
             font-size: 24px;
             font-weight: bold;
-            color: #ef394e;
+            color: #0dbf6f;
         }
         
-        .logo i {
-            font-size: 28px;
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
         }
         
         .search-bar {
@@ -96,7 +98,7 @@
             left: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #ef394e;
+            background-color: #0dbf6f;
             color: white;
             border: none;
             border-radius: 8px;
@@ -114,12 +116,29 @@
             flex-direction: column;
             align-items: center;
             font-size: 12px;
+            cursor: pointer;
+            position: relative;
         }
         
         .action-item i {
             font-size: 24px;
             margin-bottom: 5px;
             color: #666;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background-color: #ff6b6b;
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .header-bottom {
@@ -132,10 +151,46 @@
             list-style: none;
             gap: 25px;
             font-size: 14px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        
+        .categories::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .categories::-webkit-scrollbar-thumb {
+            background-color: #0dbf6f;
+            border-radius: 2px;
+        }
+        
+        .categories li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .categories li:hover {
+            background-color: #f0fff5;
         }
         
         .categories li a:hover {
-            color: #ef394e;
+            color: #0dbf6f;
+        }
+        
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0fff5;
+            border-radius: 4px;
+            color: #0dbf6f;
         }
         
         /* Main Content */
@@ -162,6 +217,9 @@
             margin-bottom: 15px;
             color: #333;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .categories-list {
@@ -169,19 +227,21 @@
         }
         
         .categories-list li {
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #f5f5f5;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .categories-list li:hover {
+            color: #0dbf6f;
+            padding-right: 5px;
         }
         
         .categories-list li:last-child {
             border-bottom: none;
-        }
-        
-        .categories-list li a:hover {
-            color: #ef394e;
         }
         
         .categories-list li i {
@@ -223,14 +283,15 @@
             position: absolute;
             bottom: 30px;
             right: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 20px;
             border-radius: 8px;
             max-width: 400px;
+            border-right: 4px solid #0dbf6f;
         }
         
         .slide-content h2 {
-            color: #ef394e;
+            color: #0dbf6f;
             margin-bottom: 10px;
         }
         
@@ -249,10 +310,12 @@
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
+            transition: all 0.3s;
         }
         
         .control-dot.active {
-            background-color: #ef394e;
+            background-color: #0dbf6f;
+            transform: scale(1.2);
         }
         
         /* Products Section */
@@ -262,11 +325,14 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #ef394e;
+            border-bottom: 2px solid #0dbf6f;
         }
         
         .section-title h2 {
             color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .section-title a {
@@ -287,6 +353,7 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0f0f0;
         }
         
         .product-card:hover {
@@ -301,12 +368,25 @@
             align-items: center;
             justify-content: center;
             background-color: #f9f9f9;
+            position: relative;
         }
         
         .product-image img {
             max-width: 80%;
             max-height: 80%;
             object-fit: contain;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: bold;
         }
         
         .product-info {
@@ -318,22 +398,31 @@
             overflow: hidden;
             margin-bottom: 10px;
             font-size: 14px;
+            font-weight: 500;
         }
         
         .product-price {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
         }
         
         .price {
-            color: #ef394e;
+            color: #0dbf6f;
             font-weight: bold;
             font-size: 18px;
         }
         
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        
         .discount {
-            background-color: #ef394e;
+            background-color: #ff6b6b;
             color: white;
             padding: 3px 8px;
             border-radius: 15px;
@@ -344,6 +433,44 @@
             color: #ffc107;
             font-size: 14px;
             margin-top: 5px;
+        }
+        
+        .product-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .btn-buy {
+            background-color: #0dbf6f;
+            color: white;
+        }
+        
+        .btn-buy:hover {
+            background-color: #08a85c;
+        }
+        
+        .btn-details {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-details:hover {
+            background-color: #e0e0e0;
         }
         
         /* Banner Section */
@@ -358,17 +485,22 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .banner:hover {
+            transform: translateY(-5px);
         }
         
         .banner img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
         }
         
         /* Footer */
         footer {
-            background-color: #3c4b6d;
+            background-color: #2c3e50;
             color: white;
             padding: 40px 0 20px;
         }
@@ -383,6 +515,7 @@
         .footer-column h3 {
             margin-bottom: 20px;
             font-size: 16px;
+            color: #0dbf6f;
         }
         
         .footer-links {
@@ -395,7 +528,7 @@
         }
         
         .footer-links li a:hover {
-            color: #19bfd3;
+            color: #0dbf6f;
         }
         
         .footer-bottom {
@@ -424,7 +557,42 @@
         }
         
         .social-icons a:hover {
-            background-color: #ef394e;
+            background-color: #0dbf6f;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: modalSlide 0.3s ease;
+        }
+        
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Responsive */
@@ -482,8 +650,6 @@
             .categories {
                 font-size: 12px;
                 gap: 15px;
-                overflow-x: auto;
-                padding-bottom: 5px;
             }
         }
     </style>
@@ -493,10 +659,10 @@
     <header>
         <div class="header-top">
             <div class="container">
-                <div>به دیجی‌کالا خوش آمدید | خرید آنلاین، تحویل سریع</div>
+                <div>به ناروین پوز خوش آمدید | فروشگاه تخصصی دستگاه‌های پرداخت</div>
                 <div class="header-top-right">
-                    <a href="#">سوالی دارید؟</a>
-                    <a href="#">فروشنده شوید</a>
+                    <a href="#"><i class="fas fa-headset"></i> پشتیبانی</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> راهنمای خرید</a>
                 </div>
             </div>
         </div>
@@ -504,28 +670,29 @@
         <div class="header-main">
             <div class="container">
                 <a href="#" class="logo">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>دیجی‌کالا</span>
+                    <img src="https://i.postimg.cc/XNcpcTWv/Screenshot-2026-01-31-15-28-04-087-com-google-android-googlequicksearchbox-edit.jpg" alt="لوگوی ناروین پوز">
+                    <span>ناروین پوز</span>
                 </a>
                 
                 <div class="search-bar">
-                    <input type="text" placeholder="جستجوی محصولات...">
+                    <input type="text" placeholder="جستجوی دستگاه‌های کش لس، ATM، لوازم جانبی...">
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 
                 <div class="user-actions">
-                    <a href="#" class="action-item">
+                    <div class="action-item" onclick="showLogin()">
                         <i class="fas fa-user"></i>
                         <span>ورود | ثبت‌نام</span>
-                    </a>
-                    <a href="#" class="action-item">
-                        <i class="fas fa-heart"></i>
-                        <span>لیست‌ها</span>
-                    </a>
-                    <a href="#" class="action-item">
+                    </div>
+                    <div class="action-item" onclick="showPage('admin')" id="adminBtn" style="display: none;">
+                        <i class="fas fa-cog"></i>
+                        <span>پنل مدیریت</span>
+                    </div>
+                    <div class="action-item" onclick="showCart()">
                         <i class="fas fa-shopping-cart"></i>
                         <span>سبد خرید</span>
-                    </a>
+                        <div class="cart-badge">0</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -533,14 +700,54 @@
         <div class="header-bottom">
             <div class="container">
                 <ul class="categories">
-                    <li><a href="#"><i class="fas fa-mobile-alt"></i> موبایل</a></li>
-                    <li><a href="#"><i class="fas fa-laptop"></i> لپ‌تاپ</a></li>
-                    <li><a href="#"><i class="fas fa-tshirt"></i> پوشاک</a></li>
-                    <li><a href="#"><i class="fas fa-home"></i> خانه و آشپزخانه</a></li>
-                    <li><a href="#"><i class="fas fa-book"></i> کتاب</a></li>
-                    <li><a href="#"><i class="fas fa-gamepad"></i> اسباب‌بازی</a></li>
-                    <li><a href="#"><i class="fas fa-utensils"></i> سوپرمارکت</a></li>
-                    <li><a href="#"><i class="fas fa-car"></i> خودرو</a></li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <a href="#">دستگاه‌های کش لس</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-atm"></i>
+                        </div>
+                        <a href="#">دستگاه‌های ATM</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <a href="#">دستگاه‌های اکبند</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-redo"></i>
+                        </div>
+                        <a href="#">دستگاه‌های استوک</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <a href="#">لوازم جانبی</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <a href="#">تعمیرات</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <a href="#">اطلاعات فنی</a>
+                    </li>
+                    <li>
+                        <div class="category-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <a href="#">گارانتی</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -552,40 +759,40 @@
             <!-- Slider Section -->
             <div class="slider-container">
                 <div class="categories-sidebar">
-                    <h3>دسته‌بندی کالاها</h3>
+                    <h3><i class="fas fa-th-large"></i> دسته‌بندی محصولات</h3>
                     <ul class="categories-list">
-                        <li><a href="#">موبایل و تبلت <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">لپ‌تاپ و کامپیوتر <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">لوازم خانگی <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">مد و پوشاک <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">زیبایی و سلامت <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">ورزش و سفر <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">خوراکی‌ها <i class="fas fa-chevron-left"></i></a></li>
-                        <li><a href="#">کتاب و هنر <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-credit-card"></i> دستگاه‌های کش لس <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-atm"></i> دستگاه‌های ATM <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-shopping-bag"></i> دستگاه‌های اکبند <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-redo"></i> دستگاه‌های استوک <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-plug"></i> لوازم جانبی <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-tools"></i> خدمات تعمیرات <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> اطلاعات فنی <i class="fas fa-chevron-left"></i></a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> پشتیبانی <i class="fas fa-chevron-left"></i></a></li>
                     </ul>
                 </div>
                 
                 <div class="main-slider">
                     <div class="slider">
-                        <div class="slide active" style="background-color: #ffebee;">
+                        <div class="slide active" style="background: linear-gradient(135deg, #0dbf6f, #08a85c);">
                             <div class="slide-content">
-                                <h2>تخفیف‌های شگفت‌انگیز</h2>
-                                <p>تا 50% تخفیف ویژه برای محصولات دیجیتال</p>
-                                <button style="background-color: #ef394e; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                                <h2>تخفیف‌های ویژه دستگاه‌های کش لس</h2>
+                                <p>تا 30% تخفیف برای خرید دستگاه‌های حرفه‌ای کش لس</p>
+                                <button style="background-color: #fff; color: #0dbf6f; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer; font-weight: bold;">مشاهده محصولات</button>
                             </div>
                         </div>
-                        <div class="slide" style="background-color: #e8f5e9;">
+                        <div class="slide" style="background: linear-gradient(135deg, #3498db, #2980b9);">
                             <div class="slide-content">
-                                <h2>جدیدترین موبایل‌ها</h2>
-                                <p>بهترین برندها با گارانتی معتبر</p>
-                                <button style="background-color: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                                <h2>دستگاه‌های ATM جدید</h2>
+                                <p>جدیدترین مدل‌های دستگاه خودپرداز با بهترین قیمت</p>
+                                <button style="background-color: #fff; color: #3498db; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer; font-weight: bold;">مشاهده محصولات</button>
                             </div>
                         </div>
-                        <div class="slide" style="background-color: #e3f2fd;">
+                        <div class="slide" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
                             <div class="slide-content">
-                                <h2>لوازم خانگی هوشمند</h2>
-                                <p>آسایش را به خانه خود بیاورید</p>
-                                <button style="background-color: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">مشاهده محصولات</button>
+                                <h2>لوازم جانبی اورجینال</h2>
+                                <p>کابل، آداپتور، کارتریج و لوازم جانبی با کیفیت</p>
+                                <button style="background-color: #fff; color: #9b59b6; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer; font-weight: bold;">مشاهده محصولات</button>
                             </div>
                         </div>
                         
@@ -598,113 +805,42 @@
                 </div>
             </div>
             
-            <!-- Products Section -->
+            <!-- Featured Products Section -->
             <section class="products-section">
                 <div class="section-title">
-                    <h2>پیشنهادهای ویژه</h2>
+                    <h2><i class="fas fa-fire"></i> پرفروش‌ترین‌ها</h2>
                     <a href="#">مشاهده همه <i class="fas fa-chevron-left"></i></a>
                 </div>
                 
-                <div class="products-grid">
-                    <!-- Product 1 -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.digi-kala.com/p/1/1.jpg" alt="گوشی موبایل">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-title">گوشی موبایل سامسونگ مدل Galaxy A54 5G دو سیم کارت</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                (۴.۲)
-                            </div>
-                            <div class="product-price">
-                                <div class="price">۱۲,۹۹۰,۰۰۰ تومان</div>
-                                <div class="discount">۱۵٪</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 2 -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.digi-kala.com/p/2/2.jpg" alt="لپ تاپ">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-title">لپ تاپ ۱۵ اینچی اپل مدل MacBook Air M1 2020</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                (۴.۰)
-                            </div>
-                            <div class="product-price">
-                                <div class="price">۴۵,۹۹۰,۰۰۰ تومان</div>
-                                <div class="discount">۱۰٪</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 3 -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.digi-kala.com/p/3/3.jpg" alt="هدفون">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-title">هدفون بی‌سیم سونی مدل WH-1000XM4</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                (۴.۸)
-                            </div>
-                            <div class="product-price">
-                                <div class="price">۱۲,۵۰۰,۰۰۰ تومان</div>
-                                <div class="discount">۲۰٪</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 4 -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.digi-kala.com/p/4/4.jpg" alt="شارژر">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-title">شارژر همراه شیائومی مدل Redmi Power Bank 20000mAh</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                (۴.۳)
-                            </div>
-                            <div class="product-price">
-                                <div class="price">۱,۲۹۰,۰۰۰ تومان</div>
-                                <div class="discount">۵٪</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="products-grid" id="productsContainer">
+                    <!-- محصولات با JavaScript ساخته می‌شوند -->
                 </div>
             </section>
             
-            <!-- Banner Section -->
+            <!-- Banners -->
             <div class="banners">
                 <div class="banner">
-                    <img src="https://cdn.digi-kala.com/banners/1.jpg" alt="تخفیف موبایل">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="گارانتی طلایی">
                 </div>
                 <div class="banner">
-                    <img src="https://cdn.digi-kala.com/banners/2.jpg" alt="لوازم خانگی">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="ارسال رایگان">
+                </div>
+                <div class="banner">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="پشتیبانی 24 ساعته">
                 </div>
             </div>
+            
+            <!-- New Products Section -->
+            <section class="products-section">
+                <div class="section-title">
+                    <h2><i class="fas fa-bolt"></i> جدیدترین محصولات</h2>
+                    <a href="#">مشاهده همه <i class="fas fa-chevron-left"></i></a>
+                </div>
+                
+                <div class="products-grid" id="newProductsContainer">
+                    <!-- محصولات جدید با JavaScript ساخته می‌شوند -->
+                </div>
+            </section>
         </div>
     </main>
     
@@ -713,118 +849,883 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-column">
-                    <h3>با دیجی‌کالا</h3>
+                    <h3>ناروین پوز</h3>
                     <ul class="footer-links">
-                        <li><a href="#">اتاق خبر</a></li>
-                        <li><a href="#">فروش در دیجی‌کالا</a></li>
-                        <li><a href="#">فرصت‌های شغلی</a></li>
-                        <li><a href="#">تماس با ما</a></li>
                         <li><a href="#">درباره ما</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                        <li><a href="#">سوالات متداول</a></li>
+                        <li><a href="#">شرایط و قوانین</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h3>خدمات مشتریان</h3>
                     <ul class="footer-links">
-                        <li><a href="#">پاسخ به پرسش‌های متداول</a></li>
-                        <li><a href="#">رویه‌های بازگرداندن کالا</a></li>
-                        <li><a href="#">شرایط استفاده</a></li>
-                        <li><a href="#">حریم خصوصی</a></li>
-                        <li><a href="#">گزارش باگ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>راهنمای خرید</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">نحوه ثبت سفارش</a></li>
-                        <li><a href="#">رویه ارسال سفارش</a></li>
-                        <li><a href="#">شیوه‌های پرداخت</a></li>
                         <li><a href="#">پیگیری سفارش</a></li>
-                        <li><a href="#">شرایط ضمانت</a></li>
+                        <li><a href="#">گارانتی محصولات</a></li>
+                        <li><a href="#">بازگرداندن کالا</a></li>
+                        <li><a href="#">راهنمای خرید</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h3>از ما دریافت کنید</h3>
-                    <p>با ثبت ایمیل، از جدیدترین تخفیف‌ها باخبر شوید</p>
-                    <div style="margin-top: 15px;">
-                        <input type="email" placeholder="ایمیل شما" style="width: 100%; padding: 10px; border-radius: 5px; border: none;">
-                        <button style="width: 100%; padding: 10px; margin-top: 10px; background-color: #ef394e; color: white; border: none; border-radius: 5px; cursor: pointer;">ثبت</button>
-                    </div>
+                    <h3>دسته‌بندی‌ها</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">دستگاه‌های کش لس</a></li>
+                        <li><a href="#">دستگاه‌های ATM</a></li>
+                        <li><a href="#">لوازم جانبی</a></li>
+                        <li><a href="#">تعمیرات</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>تماس با ما</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> 021-12345678</li>
+                        <li><i class="fas fa-envelope"></i> info@narvinpos.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر</li>
+                        <li>ساعات کاری: 9 صبح تا 6 عصر</li>
+                    </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <p>کلیه حقوق این وبسایت متعلق به شرکت دیجی‌کالا (شبیه‌سازی آموزشی) می‌باشد.</p>
-                <p style="margin-top: 10px; font-size: 12px; color: rgba(255, 255, 255, 0.7);">این یک پروژه شبیه‌سازی آموزشی است و هیچ ارتباطی با وبسایت اصلی دیجی‌کالا ندارد.</p>
+                <p>© ۲۰۲۴ ناروین پوز. تمامی حقوق محفوظ است.</p>
             </div>
         </div>
     </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2 style="text-align: center; color: #0dbf6f; margin-bottom: 20px;"><i class="fas fa-user-shield"></i> ورود مدیران</h2>
+            
+            <input type="text" id="loginUsername" placeholder="نام کاربری" 
+                   style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px;">
+            
+            <input type="password" id="loginPassword" placeholder="رمز عبور"
+                   style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 6px;">
+            
+            <div style="display: flex; gap: 10px;">
+                <button onclick="login()" style="flex: 1; padding: 12px; background-color: #0dbf6f; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-sign-in-alt"></i> ورود
+                </button>
+                <button onclick="closeModal()" style="flex: 1; padding: 12px; background-color: #f0f0f0; color: #333; border: none; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-times"></i> انصراف
+                </button>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 6px; font-size: 12px;">
+                <p style="color: #0dbf6f; margin-bottom: 10px;">اطلاعات تست:</p>
+                <p>👤 نام کاربری: <strong>admin</strong></p>
+                <p>🔑 رمز عبور: <strong>123456</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h2 style="text-align: center; color: #0dbf6f; margin-bottom: 20px;"><i class="fas fa-shopping-cart"></i> سبد خرید شما</h2>
+            
+            <div id="cartItems" style="max-height: 400px; overflow-y: auto;">
+                <!-- آیتم‌های سبد خرید -->
+            </div>
+            
+            <div id="cartTotal" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; text-align: left; font-weight: bold; font-size: 18px; color: #0dbf6f;">
+                جمع کل: ۰ تومان
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="checkout()" style="flex: 1; padding: 12px; background-color: #0dbf6f; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-check"></i> تکمیل خرید
+                </button>
+                <button onclick="closeModal()" style="flex: 1; padding: 12px; background-color: #f0f0f0; color: #333; border: none; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-times"></i> بستن
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Panel (Hidden Initially) -->
+    <div id="adminPanel" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: white; z-index: 3000; padding: 20px; overflow-y: auto;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: #0dbf6f;"><i class="fas fa-cog"></i> پنل مدیریت ناروین پوز</h2>
+                <button onclick="logoutAdmin()" style="padding: 10px 20px; background-color: #ff6b6b; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+            </div>
+            
+            <div id="adminContent">
+                <!-- محتوای پنل مدیریت -->
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Slider functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        // ==================== متغیرهای اصلی ====================
+        let currentPage = 'store';
+        let isAdminLoggedIn = localStorage.getItem('narvin_admin') === 'true';
+        let cart = JSON.parse(localStorage.getItem('narvin_cart')) || [];
+        let products = JSON.parse(localStorage.getItem('narvin_products')) || [
+            {
+                id: 1,
+                name: "دستگاه کش لس T1 Pro",
+                price: "۳۸,۰۰۰,۰۰۰",
+                oldPrice: "۴۵,۰۰۰,۰۰۰",
+                category: "دستگاه‌های کش لس",
+                image: "https://i.postimg.cc/28xYtD96/ksh-ls-syar-T1-pro.jpg",
+                rating: 4.5,
+                badge: "پرفروش",
+                description: "دستگاه حرفه‌ای کش لس با سرعت بالا و اتصال پایدار"
+            },
+            {
+                id: 2,
+                name: "دستگاه PAX S90",
+                price: "۷,۰۰۰,۰۰۰",
+                oldPrice: "۱۰,۰۰۰,۰۰۰",
+                category: "دستگاه‌های کش لس",
+                image: "https://i.postimg.cc/K8q2Z52F/sfhh-rngy-s90-min.jpg",
+                rating: 4.0,
+                badge: "تخفیف",
+                description: "دستگاه همراه با طراحی زیبا برای کسب‌وکارهای کوچک"
+            },
+            {
+                id: 3,
+                name: "دستگاه AMP 9000",
+                price: "۱۰,۰۰۰,۰۰۰",
+                category: "دستگاه‌های کش لس",
+                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 4.8,
+                badge: "جدید",
+                description: "دستگاه چندکاره با قابلیت‌های پیشرفته پرداخت"
+            },
+            {
+                id: 4,
+                name: "دستگاه ATM NCR 6632",
+                price: "۱۲۰,۰۰۰,۰۰۰",
+                category: "دستگاه‌های ATM",
+                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 4.3,
+                description: "دستگاه خودپرداز حرفه‌ای برای بانک‌ها"
+            },
+            {
+                id: 5,
+                name: "آداپتور شارژ سریع",
+                price: "۱,۲۰۰,۰۰۰",
+                category: "لوازم جانبی",
+                image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 4.2,
+                description: "آداپتور شارژ سریع ۳۳ وات"
+            },
+            {
+                id: 6,
+                name: "کیف محافظ دستگاه",
+                price: "۷۵۰,۰۰۰",
+                category: "لوازم جانبی",
+                image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 4.0,
+                description: "کیف محافظ ضد ضربه برای دستگاه‌های کش لس"
+            },
+            {
+                id: 7,
+                name: "دستگاه کش لس اکبند",
+                price: "۲۵,۰۰۰,۰۰۰",
+                oldPrice: "۳۰,۰۰۰,۰۰۰",
+                category: "دستگاه‌های اکبند",
+                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 4.6,
+                badge: "اکبند",
+                description: "دستگاه کش لس نو با گارانتی اصلی"
+            },
+            {
+                id: 8,
+                name: "دستگاه کش لس استوک",
+                price: "۱۵,۰۰۰,۰۰۰",
+                category: "دستگاه‌های استوک",
+                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                rating: 3.8,
+                badge: "استوک",
+                description: "دستگاه کش لس استوک با سلامت کامل"
+            }
+        ];
+
+        // ==================== توابع اصلی ====================
+        function init() {
+            // ذخیره محصولات اگر وجود ندارند
+            if (!localStorage.getItem('narvin_products')) {
+                localStorage.setItem('narvin_products', JSON.stringify(products));
+            } else {
+                products = JSON.parse(localStorage.getItem('narvin_products'));
+            }
+            
+            // بارگذاری محصولات
+            loadProducts();
+            updateCartCount();
+            
+            // اسلایدر خودکار
+            initSlider();
+            
+            // نمایش دکمه ادمین اگر لاگین کرده
+            if (isAdminLoggedIn) {
+                document.getElementById('adminBtn').style.display = 'flex';
+            }
+        }
+        
+        function loadProducts() {
+            const container = document.getElementById('productsContainer');
+            const newContainer = document.getElementById('newProductsContainer');
+            
+            container.innerHTML = '';
+            newContainer.innerHTML = '';
+            
+            // نمایش ۴ محصول پرفروش
+            const featuredProducts = products.slice(0, 4);
+            featuredProducts.forEach(product => {
+                container.appendChild(createProductCard(product));
+            });
+            
+            // نمایش ۴ محصول جدید
+            const newProducts = products.slice(-4);
+            newProducts.forEach(product => {
+                newContainer.appendChild(createProductCard(product));
+            });
+        }
+        
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-image">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="rating">
+                        ${getRatingStars(product.rating)} (${product.rating})
+                    </div>
+                    <div class="product-price">
+                        <div>
+                            <div class="price">${product.price} تومان</div>
+                            ${product.oldPrice ? `<div class="old-price">${product.oldPrice} تومان</div>` : ''}
+                        </div>
+                        ${product.oldPrice ? `<div class="discount">${calculateDiscount(product.oldPrice, product.price)}%</div>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-buy" onclick="addToCart(${product.id})">
+                            <i class="fas fa-cart-plus"></i> خرید
+                        </button>
+                        <button class="btn btn-details" onclick="showProductDetails(${product.id})">
+                            <i class="fas fa-info-circle"></i> جزئیات
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+        
+        function getRatingStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (halfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+        
+        function calculateDiscount(oldPrice, newPrice) {
+            const oldNum = parseInt(oldPrice.replace(/,/g, ''));
+            const newNum = parseInt(newPrice.replace(/,/g, ''));
+            return Math.round(((oldNum - newNum) / oldNum) * 100);
+        }
+        
+        // ==================== سبد خرید ====================
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // بررسی وجود محصول در سبد
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            // ذخیره در localStorage
+            localStorage.setItem('narvin_cart', JSON.stringify(cart));
+            
+            // به‌روزرسانی UI
+            updateCartCount();
+            
+            // نمایش نوتیفیکیشن
+            showNotification(`"${product.name}" به سبد خرید اضافه شد`);
+        }
+        
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            const badge = document.querySelector('.cart-badge');
+            badge.textContent = count;
+            
+            // انیمیشن
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const container = document.getElementById('cartItems');
+            const totalElement = document.getElementById('cartTotal');
+            
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; opacity: 0.3;"></i>
+                        <p style="margin-top: 15px;">سبد خرید شما خالی است</p>
+                    </div>
+                `;
+                totalElement.textContent = 'جمع کل: ۰ تومان';
+            } else {
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const priceNum = parseInt(item.price.replace(/,/g, ''));
+                    total += priceNum * item.quantity;
+                    
+                    const itemDiv = document.createElement('div');
+                    itemDiv.style.cssText = `
+                        display: flex;
+                        align-items: center;
+                        padding: 15px;
+                        border-bottom: 1px solid #eee;
+                        gap: 15px;
+                    `;
+                    itemDiv.innerHTML = `
+                        <img src="${item.image}" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 500;">${item.name}</div>
+                            <div style="color: #0dbf6f; font-weight: bold; margin-top: 5px;">${item.price} تومان</div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                <button onclick="updateCartQuantity(${index}, -1)" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: white; cursor: pointer;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span>${item.quantity} عدد</span>
+                                <button onclick="updateCartQuantity(${index}, 1)" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: white; cursor: pointer;">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button onclick="removeFromCart(${index})" style="margin-right: auto; padding: 5px 10px; background-color: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(itemDiv);
+                });
+                
+                totalElement.textContent = `جمع کل: ${total.toLocaleString('fa')} تومان`;
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function updateCartQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            localStorage.setItem('narvin_cart', JSON.stringify(cart));
+            updateCartCount();
+            showCart();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('narvin_cart', JSON.stringify(cart));
+            updateCartCount();
+            showCart();
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('سبد خرید شما خالی است!', 'error');
+                return;
+            }
+            
+            showNotification('سفارش شما با موفقیت ثبت شد!', 'success');
+            cart = [];
+            localStorage.setItem('narvin_cart', JSON.stringify(cart));
+            updateCartCount();
+            closeModal();
+        }
+        
+        // ==================== سیستم ادمین ====================
+        function showLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (username === 'admin' && password === '123456') {
+                isAdminLoggedIn = true;
+                localStorage.setItem('narvin_admin', 'true');
+                document.getElementById('adminBtn').style.display = 'flex';
+                closeModal();
+                showNotification('ورود موفق! به پنل مدیریت خوش آمدید');
+            } else {
+                showNotification('نام کاربری یا رمز عبور اشتباه است!', 'error');
+            }
+        }
+        
+        function showPage(page) {
+            if (page === 'admin' && !isAdminLoggedIn) {
+                showLogin();
+                return;
+            }
+            
+            currentPage = page;
+            
+            if (page === 'admin') {
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminPanel();
+            }
+        }
+        
+        function loadAdminPanel() {
+            const container = document.getElementById('adminContent');
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #0dbf6f;">
+                        <h3 style="color: #333; margin-bottom: 10px;">تعداد محصولات</h3>
+                        <div style="font-size: 2rem; color: #0dbf6f; font-weight: bold;">${products.length}</div>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #3498db;">
+                        <h3 style="color: #333; margin-bottom: 10px;">محصولات در سبد</h3>
+                        <div style="font-size: 2rem; color: #3498db; font-weight: bold;">${cart.length}</div>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #9b59b6;">
+                        <h3 style="color: #333; margin-bottom: 10px;">دسته‌بندی‌ها</h3>
+                        <div style="font-size: 2rem; color: #9b59b6; font-weight: bold;">۶</div>
+                    </div>
+                </div>
+                
+                <div style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h3 style="color: #333; margin-bottom: 20px;">مدیریت محصولات</h3>
+                    <button onclick="showAddProductModal()" style="padding: 10px 20px; background-color: #0dbf6f; color: white; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 20px;">
+                        <i class="fas fa-plus"></i> افزودن محصول جدید
+                    </button>
+                    
+                    <div id="adminProductsList" style="margin-top: 20px;">
+                        ${products.map((product, index) => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; ${index === products.length - 1 ? 'border-bottom: none;' : ''}">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <img src="${product.image}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">
+                                    <div>
+                                        <div style="font-weight: 500;">${product.name}</div>
+                                        <div style="color: #0dbf6f; font-size: 14px;">${product.price} تومان</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button onclick="editProduct(${product.id})" style="padding: 5px 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px;">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteProduct(${product.id})" style="padding: 5px 10px; background-color: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showAddProductModal() {
+            // پیاده‌سازی مدال افزودن محصول
+            alert('این بخش نیاز به پیاده‌سازی کامل دارد');
+        }
+        
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            localStorage.removeItem('narvin_admin');
+            document.getElementById('adminBtn').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+            showNotification('از پنل مدیریت خارج شدید');
+        }
+        
+        // ==================== اسلایدر ====================
+        function initSlider() {
+            let currentSlide = 0;
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.control-dot');
-            let currentSlide = 0;
             
-            // Function to show a specific slide
             function showSlide(index) {
-                // Hide all slides
                 slides.forEach(slide => slide.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
                 
-                // Show the selected slide
                 slides[index].classList.add('active');
                 dots[index].classList.add('active');
-                
-                currentSlide = index;
             }
             
-            // Add click event to dots
+            // کلیک روی دات‌ها
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    showSlide(index);
+                    currentSlide = index;
+                    showSlide(currentSlide);
                 });
             });
             
-            // Auto slide every 5 seconds
+            // اسلایدر خودکار
             setInterval(() => {
-                let nextSlide = (currentSlide + 1) % slides.length;
-                showSlide(nextSlide);
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
             }, 5000);
+        }
+        
+        // ==================== توابع کمکی ====================
+        function showProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
             
-            // Product card hover effect
-            const productCards = document.querySelectorAll('.product-card');
-            productCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
-                });
+            alert(`نام: ${product.name}\nقیمت: ${product.price} تومان\nدسته‌بندی: ${product.category}\n\n${product.description}`);
+        }
+        
+        function showNotification(message, type = 'success') {
+            // ایجاد عنصر نوتیفیکیشن
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 20px;
+                background-color: ${type === 'success' ? '#0dbf6f' : '#ff6b6b'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease, fadeOut 0.3s 2s forwards;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                border-right: 4px solid white;
+                max-width: 300px;
+            `;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // حذف خودکار
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 2500);
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('cartModal').style.display = 'none';
+        }
+        
+        // ==================== اجرای اولیه ====================
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // بستن مدال با کلیک خارج
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+                        onclick="addToCart('AMP 9000', '۱۰,۰۰۰,۰۰۰')">
+                            <i class="fas fa-cart-plus"></i> افزودن
+                        </button>
+                        <button class="btn btn-details" onclick="showProductDetails(3)">
+                            <i class="fas fa-info-circle"></i> جزئیات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="products-section">
+        <h2 class="section-title">
+            <i class="fas fa-star"></i>
+            چرا ناروین پوز؟
+        </h2>
+        
+        <div class="products-grid">
+            <div class="product-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin: 20px 0; color: #0dbf6f;">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>ضمانت اصالت</h3>
+                <p>همه محصولات با گارانتی اصلی و خدمات پس از فروش</p>
+            </div>
+            
+            <div class="product-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin: 20px 0; color: #ffcc00;">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>ارسال سریع</h3>
+                <p>ارسال به تمام نقاط ایران در کمترین زمان ممکن</p>
+            </div>
+            
+            <div class="product-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin: 20px 0; color: #36d1dc;">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>پشتیبانی ۲۴/۷</h3>
+                <p>پشتیبانی فنی و مشاوره رایگان در تمام ساعات</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>درباره ناروین پوز</h3>
+                <p>ما با سال‌ها تجربه در زمینه فروش دستگاه‌های پرداخت، بهترین خدمات را به مشتریان خود ارائه می‌دهیم.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تماس با ما</h3>
+                <p><i class="fas fa-phone"></i> تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                <p><i class="fas fa-envelope"></i> ایمیل: info@narvinpos.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> آدرس: تهران، خیابان ولیعصر</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>لینک‌های سریع</h3>
+                <p><a href="#" style="color:white; text-decoration:none;">صفحه اصلی</a></p>
+                <p><a href="#products" style="color:white; text-decoration:none;">محصولات</a></p>
+                <p><a href="login.html" style="color:#0dbf6f; text-decoration:none;">پنل مدیریت</a></p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>© ۲۰۲۴ ناروین پوز. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+    
+    <!-- دکمه پنل مدیریت -->
+    <a href="login.html" class="admin-btn" title="ورود به پنل مدیریت">
+        <i class="fas fa-user-shield"></i>
+    </a>
+    
+    <script>
+        // متغیرهای سبد خرید
+        let cart = JSON.parse(localStorage.getItem('narvin_cart')) || [];
+        let cartCount = cart.length;
+        
+        // به‌روزرسانی تعداد سبد خرید
+        function updateCartBadge() {
+            const badge = document.querySelector('.cart-badge');
+            badge.textContent = cartCount;
+            badge.style.animation = 'bounce 0.5s';
+            setTimeout(() => badge.style.animation = '', 500);
+        }
+        
+        // افزودن به سبد خرید
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            cartCount = cart.length;
+            localStorage.setItem('narvin_cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // انیمیشن موفقیت
+            const btn = event.target.closest('.btn-buy');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> افزوده شد!';
+            btn.style.background = 'linear-gradient(45deg, #4cc9f0, #4361ee)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'linear-gradient(45deg, #0dbf6f, #08a85c)';
+            }, 1500);
+            
+            // نمایش نوتیفیکیشن
+            showNotification(`${productName} به سبد خرید اضافه شد!`);
+        }
+        
+        // نمایش نوتیفیکیشن
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 20px;
+                background: rgba(13, 191, 111, 0.95);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideInLeft 0.3s ease;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                border-left: 4px solid white;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutLeft 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // اضافه کردن استایل انیمیشن
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInLeft {
+                    from { transform: translateX(-100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOutLeft {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(-100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // نمایش جزئیات محصول
+        function showProductDetails(productId) {
+            const products = [
+                {
+                    name: 'کش لس T1 Pro',
+                    price: '۳۸,۰۰۰,۰۰۰ تومان',
+                    description: 'دستگاه حرفه‌ای کش لس با پردازنده قدرتمند، صفحه‌نمایش لمسی ۵ اینچی، اتصال WiFi و 4G، چاپگر حرارتی داخلی، پشتیبانی از تمامی کارت‌های بانکی'
+                },
+                {
+                    name: 'PAX S90',
+                    price: '۷,۰۰۰,۰۰۰ تومان',
+                    description: 'دستگاه همراه و سبک با باتری قدرتمند، مناسب برای فروشندگان سیار، اتصال بلوتوث و WiFi، صفحه‌نمایش رنگی'
+                },
+                {
+                    name: 'AMP 9000',
+                    price: '۱۰,۰۰۰,۰۰۰ تومان',
+                    description: 'دستگاه همه‌کاره با قابلیت‌های پیشرفته گزارش‌گیری، مدیریت موجودی، اتصال به نرم‌افزارهای حسابداری'
+                }
+            ];
+            
+            const product = products[productId - 1];
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                padding: 20px;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 20px; padding: 30px; max-width: 500px; width: 100%; border: 1px solid rgba(255,255,255,0.2);">
+                    <h2 style="color: white; margin-bottom: 20px;">${product.name}</h2>
+                    <p style="color: #ddd; line-height: 1.8; margin-bottom: 25px;">${product.description}</p>
+                    <div style="color: #ffcc00; font-size: 1.5rem; font-weight: bold; margin-bottom: 25px;">${product.price}</div>
+                    <div style="display: flex; gap: 15px;">
+                        <button onclick="addToCart('${product.name}', '${product.price.split(' ')[0]}')" 
+                                style="flex:1; padding:12px; background:#0dbf6f; color:white; border:none; border-radius:10px; cursor:pointer;">
+                            <i class="fas fa-cart-plus"></i> افزودن به سبد
+                        </button>
+                        <button onclick="this.closest('div').remove()" 
+                                style="flex:1; padding:12px; background:rgba(255,255,255,0.2); color:white; border:none; border-radius:10px; cursor:pointer;">
+                            <i class="fas fa-times"></i> بستن
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // بستن با کلیک خارج
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
             });
-            
-            // Search bar focus effect
-            const searchInput = document.querySelector('.search-bar input');
-            searchInput.addEventListener('focus', function() {
-                this.parentElement.style.boxShadow = '0 0 0 2px rgba(239, 57, 78, 0.2)';
+        }
+        
+        // اسکرول به محصولات
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
             });
-            
-            searchInput.addEventListener('blur', function() {
-                this.parentElement.style.boxShadow = 'none';
+        }
+        
+        // انیمیشن کارت‌ها هنگام اسکرول
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // بار اول
+        updateCartBadge();
+        
+        // اضافه کردن انیمیشن به کارت‌ها
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                observer.observe(card);
             });
         });
+        
+        // تغییر رنگ گرادینت پس‌زمینه
+        let hue = 270; // بنفش
+        setInterval(() => {
+            hue = (hue + 0.1) % 360;
+            document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 100%, 60%), hsl(${hue + 30}, 100%, 60%))`;
+        }, 100);
     </script>
 </body>
 </html>
